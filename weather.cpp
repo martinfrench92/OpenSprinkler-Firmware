@@ -272,11 +272,13 @@ void GetWeather() {
 
   BufferFiller bf = tmp_buffer;
   char tmp[100];
+  char dskey[] PROGMEM = "757f3fd61e5746e41223b70f0de1ff1a";
   read_from_file(wtopts_filename, tmp, 100);
-  bf.emit_p(PSTR("$D.py?loc=$E&key=$E&fwv=$D&wto=$S"),
+  bf.emit_p(PSTR("$D.py?loc=$E&key=$E&dskey=$F&fwv=$D&wto=$S"),
                 (int) os.options[OPTION_USE_WEATHER],
                 ADDR_NVM_LOCATION,
                 ADDR_NVM_WEATHER_KEY,
+                dskey,
                 (int)os.options[OPTION_FW_VERSION],
                 tmp);    
 
