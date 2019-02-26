@@ -233,8 +233,11 @@ void GetWeather() {
   uint16_t port = 80;
   char * delim;
   struct hostent *server;
-  
+
   nvm_read_block(tmp_buffer, (void*)ADDR_NVM_WEATHERURL, MAX_WEATHERURL);
+
+  char host_buffer[256];
+  nvm_read_block(host_buffer, (void*)ADDR_NVM_WEATHERURL, MAX_WEATHERURL);
 
   // Check to see if url specifies a port number to use
   delim = strchr(tmp_buffer, ':');
@@ -259,6 +262,8 @@ void GetWeather() {
   DEBUG_PRINT(((uint8_t*)server->h_addr)[3]);
   DEBUG_PRINT(":");
   DEBUG_PRINTLN(port);
+  DEBUG_PRINTLN(server->h_name);
+  DEBUG_PRINTLN(host_buffer);
 
   if (!client.connect((uint8_t*)server->h_addr, port)) {
     client.stop();
@@ -298,14 +303,14 @@ void GetWeather() {
   strcpy(urlBuffer, "GET /weather");
   strcat(urlBuffer, dst);
   strcat(urlBuffer, " HTTP/1.0\r\nHOST: ");
-  strcat(urlBuffer, server->h_name);
+  strcat(urlBuffer, host_buffer);
   strcat(urlBuffer, "\r\n\r\n");
-  
+
   client.write((uint8_t *)urlBuffer, strlen(urlBuffer));
-  
+
   bzero(ether_buffer, ETHER_BUFFER_SIZE);
-  
-  time_t timeout = os.now_tz() + 5; // 5 seconds timeout
+
+  time_t timeout = os.now_tz() + 25; // 25 seconds timeout
   while(os.now_tz() < timeout) {
     int len=client.read((uint8_t *)ether_buffer, ETHER_BUFFER_SIZE);
     if (len<=0) {

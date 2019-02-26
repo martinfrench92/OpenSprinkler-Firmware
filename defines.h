@@ -34,7 +34,7 @@ typedef unsigned long ulong;
 #endif
 
 /** Firmware version, hardware version, and maximal values */
-#define OS_FW_VERSION  218  // Firmware version: 218 means 2.1.8
+#define OS_FW_VERSION  219  // Firmware version: 219 means 2.1.9
                             // if this number is different from the one stored in non-volatile memory
                             // a device reset will be automatically triggered
 
@@ -205,7 +205,7 @@ typedef unsigned long ulong;
 #define DEFAULT_LOCATION          "Boston,MA"
 #define DEFAULT_WEATHER_KEY       ""
 #define DEFAULT_JAVASCRIPT_URL    "https://ui.opensprinkler.com/js"
-#define DEFAULT_WEATHER_URL       "weather.opensprinkler.com"
+#define DEFAULT_WEATHER_URL       "ospi-weather.herokuapp.com"
 #define DEFAULT_IFTTT_URL         "maker.ifttt.com"
 
 /** Macro define of each option
