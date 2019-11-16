@@ -391,6 +391,8 @@ ISR(WDT_vect)
 
 #else
 
+void write_log(byte type, ulong curr_time);
+
 void do_setup() {
   initialiseEpoch();   // initialize time reference for millis() and micros()
   os.begin();          // OpenSprinkler init
@@ -412,7 +414,7 @@ void do_setup() {
 }
 #endif
 
-void write_log(byte type, ulong curr_time);
+
 void schedule_all_stations(ulong curr_time);
 void turn_off_station(byte sid, ulong curr_time);
 void process_dynamic_events(ulong curr_time);
