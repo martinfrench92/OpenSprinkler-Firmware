@@ -406,6 +406,9 @@ void do_setup() {
     os.status.network_fails = 1;
   }
   os.status.req_network = 0;
+  DEBUG_PRINTLN("Checking Log Printing");
+  time_t curr_time = os.now_tz();
+  write_log(LOGDATA_WATERLEVEL, curr_time);
 }
 #endif
 
